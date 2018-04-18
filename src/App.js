@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from 'react-md';
 
 import './App.css';
 
@@ -7,7 +8,7 @@ class App extends Component {
     return (
       
       <div>
-        aaa
+        <Button primary flat>Hello, World!</Button>
       </div>
     );
   }
