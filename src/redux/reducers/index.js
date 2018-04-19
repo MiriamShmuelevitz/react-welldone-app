@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux'
-import  CategoryReducer from './CategoryReducer';
-import LocationReducer from './LocationReducer';
+import listItem from './ListReducer';
+import AppReducer from './AppReducer';
 
 export default combineReducers({
-    CategoryReducer,
-    LocationReducer
+    CategoryReducer: listItem('category'),
+    LocationReducer: listItem('location'),
+    AppReducer
 });
