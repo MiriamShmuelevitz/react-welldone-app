@@ -10,11 +10,19 @@ const createReducer = (handlersConfig, initialState) => {
 
 function ListReducer(listName) {
   const list = createReducer({
+    'GET': (state, action) => {
+      if (listName === action.payload.listName) {
+        const list = JSON.parse(localStorage.getItem(action.payload.listName)) || [];
+        return list;
+      }
+      return state;
+    },
     'ADD': (state, action) => {
       if (listName === action.payload.listName) {
         const tmp = state;
-        const tmpIndex = state[state.length - 1]
+        const tmpIndex = state[state.length - 1];
         tmp.push({ ...action.payload.data, id: tmpIndex ? tmpIndex.id + 1 : 0 })
+        localStorage.setItem(action.payload.listName, JSON.stringify(tmp));
         return tmp;
       }
       return state;
@@ -22,7 +30,8 @@ function ListReducer(listName) {
     'EDIT': (state, action) => {
       if (listName === action.payload.listName) {
         const tmp = state;
-        tmp[action.payload.data.id] = { ...action.payload.data};
+        tmp[action.payload.data.id] = { ...action.payload.data };
+        localStorage.setItem(action.payload.listName, JSON.stringify(tmp));
         return tmp
       }
       return state;
@@ -30,6 +39,7 @@ function ListReducer(listName) {
     'REMOVE': (state, action) => {
       if (listName === action.payload.listName) {
         const tmp = state.filter(item => item.id !== action.payload.id);
+        localStorage.setItem(action.payload.listName, JSON.stringify(tmp));
         return tmp
       }
       return state;
@@ -40,6 +50,12 @@ function ListReducer(listName) {
 
 export const listItem = collectionName => ListReducer(collectionName);
 
+export const getList = (listName) => {
+  return {
+    type: 'GET',
+    payload: { listName }
+  }
+}
 
 export const removeItem = (listName, id) => {
   return {

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import LocationTable from '../component/LocationTable';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {setModal} from '../redux/reducers/AppReducer';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setModal } from '../redux/reducers/AppReducer';
 import { addItem, removeItem, editItem } from '../redux/reducers/ListReducer';
 
 class LocationTableContainer extends Component {
@@ -16,7 +16,8 @@ class LocationTableContainer extends Component {
 const mapStateToProps = (state) => {
     return {
         modal_loc_visible: state.AppReducer.modal_loc_visible,
-        list: state.LocationReducer
+        list: state.LocationReducer,
+        categoryList: state.CategoryReducer.map(item => item.name) || []
     }
 }
 

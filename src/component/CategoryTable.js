@@ -61,6 +61,7 @@ class CategoryTable extends Component {
         return (
             <div>
                 <Modal
+                    mode={mode}
                     title={title}
                     onSave={() => mode === 'add' ? this.onSave() : this.onEditSave()}
                     fildes={[<TextField disabled={mode === 'view'} value={this.state.data.name || ''} errorText="This field is required." I error={this.state.error && this.state.data.name === ''} required onChange={(value, e) => this.onChange(value, e)} id="name" label="Name" placeholder="Category Nane" className="md-cell md-cell--12" />]}
@@ -68,7 +69,7 @@ class CategoryTable extends Component {
                     onCancel={() => {
                         actions.setModal('cat', false); this.setState(initstate)
                     }} />
-                <BaseTable onView={(id) => this.onView(id)} onDelete={(id) => this.onDelete(id)} onEdit={(id) => this.onEdit(id)} dataList={list} headerList={['name']} />
+                <BaseTable onView={(id) => this.onView(id)} onDelete={(id) => this.onDelete(id)} onEdit={(id) => this.onEdit(id)} dataList={list} headerList={[{ name: 'name' }]} />
             </div>
         );
     }

@@ -6,7 +6,8 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 import { Route, Link, BrowserRouter } from 'react-router-dom';
 import { BottomNavigation, FontIcon, Toolbar, Button } from 'react-md';
-import { setModal } from './redux/reducers/AppReducer'
+import { setModal } from './redux/reducers/AppReducer';
+import { getList } from './redux/reducers/ListReducer';
 import LocationTableContainer from './container/LocationTableContainer';
 import CategoryTableContainer from './container/CategoryTableContainer';
 const links = [{
@@ -24,7 +25,10 @@ class RoutingExample extends Component {
 
     constructor(props) {
         super();
+        props.actions.getList('location');
+        props.actions.getList('category');
     }
+
 
     getInitialIndex = (pathname) => {
         let index = -1;
@@ -74,5 +78,5 @@ class RoutingExample extends Component {
 }
 
 export default withRouter(connect(null, dispatch => ({
-    actions: bindActionCreators({ setModal }, dispatch)
+    actions: bindActionCreators({ setModal, getList }, dispatch)
 }))(RoutingExample));

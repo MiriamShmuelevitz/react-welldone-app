@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   DialogContainer,
   TextField,
+  Subheader
 } from 'react-md';
 
 
@@ -20,8 +21,13 @@ export default class Modal extends Component {
   }
 
   render() {
-    const { visible, fildes} = this.props;
-    const actions = [{
+    const { visible, fildes, mode, attentionMessage} = this.props;
+    const actions = mode === 'view' || attentionMessage ? [{
+      id: 'OK',
+      primary: true,
+      children: 'OK',
+      onClick: this.hide,
+    }] : [{
       id: 'dialog-cancel',
       secondary: true,
       children: 'Cancel',
@@ -33,6 +39,7 @@ export default class Modal extends Component {
       onClick: this.onSave,
     }];
 
+
     return (
       <div>
         <DialogContainer
@@ -43,8 +50,7 @@ export default class Modal extends Component {
           onHide={this.hide}
           contentClassName="md-grid"
           modal
-        >
-          {fildes}
+        >             {fildes}
         </DialogContainer>
       </div>
     );
